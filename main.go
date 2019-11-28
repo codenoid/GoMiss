@@ -27,19 +27,24 @@ func main() {
 		line := string(input)
 		if strings.Contains(line, "cannot find package") {
 			slice := strings.Split(line, `"`)
-			// get package url
-			packageUrl := slice[1]
 
-			// build go get -u command
-			get := exec.Command(gobin, "get", "-u", packageUrl)
+			if len(slice) == 3 {
+				// get package url
+				packageUrl := slice[1]
 
-			message := "Downloading " + packageUrl
+				// build go get -u command
+				get := exec.Command(gobin, "get", "-u", packageUrl)
 
-			if err := get.Run(); err != nil {
-				message = message + " : " + err.Error()
+				message := "Downloading " + packageUrl
+
+				if err := get.Run(); err != nil {
+					message = message + " : " + err.Error()
+				}
+
+				fmt.Println(message)
+			} else {
+				fmt.Println("Invalid message : " + line)
 			}
-
-			fmt.Println(message)
 		}
 	}
 }
