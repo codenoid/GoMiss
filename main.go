@@ -17,13 +17,13 @@ func main() {
 		panic(err)
 	}
 
-    fi, _ := os.Stdin.Stat()
+	fi, _ := os.Stdin.Stat()
 
-    if (fi.Mode() & os.ModeCharDevice) != 0 {
-    	fmt.Println("'modify go build' (if needed) and exec this command")
-        fmt.Println("go build 2>&1 >/dev/null | GoMiss")
-        os.Exit(0)
-    }
+	if (fi.Mode() & os.ModeCharDevice) != 0 {
+		fmt.Println("'modify go build' (if needed) and exec this command")
+		fmt.Println("go build 2>&1 >/dev/null | GoMiss")
+		os.Exit(0)
+	}
 
 	reader := bufio.NewReader(os.Stdin)
 
